@@ -77,8 +77,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = bar;
-function bar() {
-    alert('Hello Webpack!');
+function bar(user) {
+    alert('Hello Webpack!' + user);
 }
 
 /***/ }),
@@ -94,7 +94,7 @@ var _bar2 = _interopRequireDefault(_bar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _bar2.default)();
+(0, _bar2.default)("mazao");
 
 /***/ })
 /******/ ]);
