@@ -9728,8 +9728,35 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = new _vue2.default({
     el: '#app',
     data: {
-        newTodo: '4115',
+        newTodo: '',
         todoList: []
+    },
+    created: function created() {
+        var _this = this;
+
+        // onbeforeunload文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Window/onbeforeunload
+        window.onbeforeunload = function () {
+            var dataString = JSON.stringify(_this.todoList); // JSON 文档: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON
+            window.localStorage.setItem('myTodos', dataString); // 看文档https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage
+        };
+
+        var oldDataString = window.localStorage.getItem('myTodos');
+        var oldData = JSON.parse(oldDataString);
+        this.todoList = oldData || [];
+    },
+    methods: {
+        addTodo: function addTodo() {
+            this.todoList.push({
+                title: this.newTodo,
+                time: new Date(),
+                done: false // 添加一个 done 属性
+            });
+            this.newTodo = '';
+        },
+        removeTodo: function removeTodo(todo) {
+            var index = this.todoList.indexOf(todo); // Array.prototype.indexOf 是 ES 5 新加的 API
+            this.todoList.splice(index, 1);
+        }
     }
 });
 
