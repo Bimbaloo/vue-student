@@ -9741,7 +9741,9 @@ var app = new _vue2.default({
         };
 
         var oldDataString = window.localStorage.getItem('myTodos');
+        console.log(oldDataString);
         var oldData = JSON.parse(oldDataString);
+        console.log(oldData);
         this.todoList = oldData || [];
     },
     methods: {
