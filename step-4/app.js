@@ -70,22 +70,20 @@ var app = new Vue({
             });
         },
         getCurrentUser: function () { // 👈
-            var current = _leancloudStorage2.default.User.current();
+            let current = AV.User.current()
             if (current) {
-                var id = current.id,
-                    createdAt = current.createdAt,
-                    username = current.attributes.username;
+                let {id, createdAt, attributes: {username}} = current
                 // 上面这句话看不懂就得看 MDN 文档了
                 // 我的《ES 6 新特性列表》里面有链接：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
-
-                return {id: id, username: username, createdAt: createdAt}; // 看文档：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Object_initializer#ECMAScript_6%E6%96%B0%E6%A0%87%E8%AE%B0
+                return {id, username, createdAt} // 看文档：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Object_initializer#ECMAScript_6%E6%96%B0%E6%A0%87%E8%AE%B0
             } else {
-                return null;
+                return null
             }
         },
         logout: function () {
-            _leancloudStorage2.default.User.logOut();  //退出API
-
+            AV.User.logOut();
+            this.currentUser = null
+            window.location.reload()  //刷新浏览器
         }
     }
 })

@@ -24442,13 +24442,13 @@ var _vue2 = _interopRequireDefault(_vue);
 
 var _leancloudStorage = __webpack_require__(2);
 
-var _leancloudStorage3 = _interopRequireDefault(_leancloudStorage);
+var _leancloudStorage2 = _interopRequireDefault(_leancloudStorage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var APP_ID = 'DcOc5cGIJ6nL7b2ts8s2Xrbs-gzGzoHsz';
 var APP_KEY = 'CHB0asUCF3qYoH5x4naPvrtB';
-_leancloudStorage3.default.init({
+_leancloudStorage2.default.init({
     appId: APP_ID,
     appKey: APP_KEY
 });
@@ -24498,7 +24498,7 @@ var app = new _vue2.default({
         signUp: function signUp() {
             var _this2 = this;
 
-            var user = new _leancloudStorage3.default.User();
+            var user = new _leancloudStorage2.default.User();
             user.setUsername(this.formData.username);
             user.setPassword(this.formData.password);
             user.signUp().then(function (loginedUser) {
@@ -24511,7 +24511,7 @@ var app = new _vue2.default({
         login: function login() {
             var _this3 = this;
 
-            _leancloudStorage3.default.User.logIn(this.formData.username, this.formData.password).then(function (loginedUser) {
+            _leancloudStorage2.default.User.logIn(this.formData.username, this.formData.password).then(function (loginedUser) {
                 console.log(loginedUser);
                 _this3.currentUser = _this3.getCurrentUser(); // 👈
                 //console.log(AV.User.current())
@@ -24535,7 +24535,9 @@ var app = new _vue2.default({
             }
         },
         logout: function logout() {
-            _leancloudStorage2.default.User.logOut(); //退出API
+            _leancloudStorage2.default.User.logOut();
+            this.currentUser = null;
+            window.location.reload(); //刷新浏览器
         }
     }
 });
